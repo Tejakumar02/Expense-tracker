@@ -9,7 +9,6 @@ import HidePWD from '../assets/hide.svg'
 
 
 const SignIn = () => {
-    const api = process.env.REACT_APP_APPLICATION_URL
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +20,7 @@ const SignIn = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`${api}/api/overview/signin`, { userName, password });
+            const response = await axios.post(`/api/overview/signin`, { userName, password });
 
             if (response.status === 200) {
                 const token = response.data.token;
