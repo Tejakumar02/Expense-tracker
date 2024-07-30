@@ -1,14 +1,14 @@
 const express = require('express')
 const { createExpense, getAllExpenses, getSpecifiedExpense, deleteExpense, updateExpense } = require('../controllers/expenseController')
-const { signUp, signIn } = require('../controllers/authenticationController');
+const { signUp, signIn, authMiddleware } = require('../controllers/authenticationController');
 
 const router = express.Router()
 
-router.get('/expenses', getAllExpenses)
+router.get('/expenses', authMiddleware, getAllExpenses)
 
 router.get('/:id', getSpecifiedExpense)
 
-router.post('/', createExpense)
+router.post('/', authMiddleware, createExpense)
 
 router.delete('/:id', deleteExpense)
 

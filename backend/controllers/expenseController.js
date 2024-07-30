@@ -3,9 +3,14 @@ const mongoose = require('mongoose')
 
 //Get all expenses
 const getAllExpenses = async(req, res) => {
-    const expenses = await Expense.find().sort({createdAt: -1})
-
-    res.status(200).json(expenses)
+    try {
+        const user = req.user.id;
+        const expenses = await Expense.find({ user }).sort({createdAt: -1});
+        res.status(200).json(expenses);
+    }
+    catch(error) {
+        res.status(400).json({msg: error});
+    }
 }
 
 //Get a single expense
@@ -28,7 +33,7 @@ const getSpecifiedExpense = async(req, res) => {
 //Create a new expense
 const createExpense = async(req, res) => {
     const {date, place, amount} = req.body
-
+    const user = req.user.id
     let emptyFields = []
 
     if(!date) {
@@ -47,7 +52,7 @@ const createExpense = async(req, res) => {
     else {
         //Add doc to DB
         try {
-            const expense = await Expense.create({date, place, amount})
+            const expense = await Expense.create({date, place, amount, user})
             res.status(200).json(expense)
         }
         catch(error) {
@@ -81,9 +86,7 @@ const updateExpense = async(req, res) => {
         return res.status(404).json({error: 'No such expense'})
     }
 
-    const expense = await Expense.findOneAndUpdate({_id: id}, {
-        ...req.body
-    })
+    const expense = await Expense.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
 
     if(!expense) {
         return res.status(404).json({error: 'No such expense'})

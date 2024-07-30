@@ -10,6 +10,7 @@ const app = express()
 //Middleware
 app.use(express.json())
 
+//Logging middleware
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()

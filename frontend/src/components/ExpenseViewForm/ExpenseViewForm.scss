@@ -1,0 +1,60 @@
+.expenses-container {
+    width: 45%;
+    background: $background-color;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+
+    form {
+        width: 95%;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 1rem;
+
+        input {
+            width: 40%;
+            height: 5%;
+            margin: 0;
+            padding: 10px;
+        }
+        
+        button {
+            border-radius: 0.5rem;
+            width: 15%;
+            padding: 0.5rem;
+            background: $success;
+            align-self: center;
+            border: $success;
+            color: $background-color;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $error;
+            }
+        }
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: space-between;
+        padding: 0.5rem 2rem;
+
+        h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+        padding-right: 8px;
+        cursor: pointer;
+    }
+}

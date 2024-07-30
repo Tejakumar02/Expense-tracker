@@ -16,6 +16,14 @@ export const expensesReducer = (state, action) => {
             return {
                 expenses: state.expenses.filter((e) => e._id !== action.payload._id)
             }
+        case 'UPDATE_EXPENSE':
+            const updatedExpenses = state.expenses.map((expense) =>
+                expense._id === action.payload._id ? action.payload : expense
+            );
+            return {
+                ...state,
+                expenses: updatedExpenses
+            }
         default:
             return state
     }

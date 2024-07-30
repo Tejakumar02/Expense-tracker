@@ -1,0 +1,12 @@
+.navigation-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    button {
+        &:disabled {
+            background-color: #787878;
+            cursor: not-allowed;
+        }
+    }
+}

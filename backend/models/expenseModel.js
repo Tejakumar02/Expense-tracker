@@ -14,6 +14,11 @@ const expenseSchema = new Schema({
     amount: {
         type: Number,
         required: true
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 },{timestamps: true})
 

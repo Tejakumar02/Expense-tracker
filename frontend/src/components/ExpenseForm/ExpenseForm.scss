@@ -1,0 +1,84 @@
+.home {
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 1.5rem 2rem;
+
+        .expenseform-container {
+            width: 45%;
+            background: $background-color;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+
+            .header {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                justify-content: space-between;
+                padding: 0.5rem 2rem;
+
+                h4 {
+                    margin: 0;
+                    font-size: 1.2rem;
+                }
+            }
+        
+            img {
+                width: 24px;
+                height: 24px;
+                padding-right: 8px;
+                cursor: pointer;
+            }
+
+            .content {
+                form {
+                    width: 80%;
+                    margin-top: 1rem;
+                    padding: 0;
+
+                    h3 {
+                        margin: 0;
+                    }
+
+                    label {
+                        width: 20%;
+                    }
+
+                    input {
+                        width: 80%;
+                        padding: 10px;
+                    }
+
+                    div {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    button {
+                        border-radius: 0.5rem;
+                        width: fit-content;
+                        padding: 0.5rem;
+                        background: $success;
+                        align-self: center;
+                        border: $success;
+                        color: $background-color;
+                        font-weight: bold;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: $error;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .list-expenses {
+        width: 90%;
+        padding: 1rem 2rem;
+    }
+}

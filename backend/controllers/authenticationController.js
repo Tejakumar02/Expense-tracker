@@ -8,7 +8,7 @@ const signUp = async(req,res) => {
     try {
         let user = await User.findOne({ userName });
         if (user) {
-            return res.status(400).json({ msg: 'User aLready exists'});
+            return res.status(400).json({ msg: 'Username already exists, try again with different username'});
         }
 
         user = new User({userName, password});
@@ -26,10 +26,9 @@ const signUp = async(req,res) => {
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: '1h'},
             (err, token) => {
                 if(err) throw err;
-                res.json({ token });
+                res.json({ token, userName });
             }            
         )
     }
@@ -44,12 +43,12 @@ const signIn = async(req, res) => {
     try {
         let user = await User.findOne({ userName });
         if(!user) {
-            return res.status(400).json({msg: 'Invalid Credentials'});
+            return res.status(400).json({msg: 'User not found, please enter valid Username'});
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) {
-            return res.status(400).json({msg: 'Invalid Password'});
+            return res.status(400).json({msg: 'Wrong Password, please enter valid password'});
         }
 
         const payload = {
@@ -61,10 +60,9 @@ const signIn = async(req, res) => {
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
-            { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ token })
+                res.json({ token, userName })
             }
         )
     }
@@ -74,7 +72,28 @@ const signIn = async(req, res) => {
     }
 }
 
+const authMiddleware = async(req, res, next) => { 
+    try {
+        const authHeader = req.header('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ msg: 'Authorization denied, no token' });
+        }
+        const token = authHeader.substring(7);
+        const data = JSON.parse(token);
+        const key = data.token;
+        const decode = jwt.verify(key, process.env.JWT_SECRET)
+        req.user = await User.findById(decode.user.id).select('-password')
+        next();
+    }
+    catch(error) {
+        res.status(401).json({ msg: 'Token is not valid' });
+        console.error(error)
+        next();
+    }
+}
+
 module.exports = {
     signUp,
-    signIn
+    signIn,
+    authMiddleware
 }

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "ExpenseTracker/frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "ExpenseTracker/frontend/build"
+      }
+    },
+    {
+      "src": "ExpenseTracker/backend/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "ExpenseTracker/backend/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "ExpenseTracker/frontend/build/$1"
+    }
+  ]
+}
+
