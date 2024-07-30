@@ -3,9 +3,13 @@ require('dotenv').config()
 const express = require('express')
 const mongoDB = require('mongoose')
 const routes = require('./routes/index')
+const cors = require('cors')
 
 //Express App
 const app = express()
+
+//Enable cors
+app.use(cors())
 
 //Middleware
 app.use(express.json())
