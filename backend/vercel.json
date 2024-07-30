@@ -4,10 +4,6 @@
         "source": "./server.js",
         "use": "@vercel/node"
     }],
-    "routes": [{
-        "source": "/(.*)",
-        "destination": "/"
-    }],
     "rewrites": [{
         "source": "/(.*)",
         "destination": "/"
