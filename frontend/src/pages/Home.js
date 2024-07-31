@@ -25,7 +25,7 @@ const Home = () => {
 
         const fetchExpenses = async () => {
             try {
-                const response = await axios.get("/api/overview/expenses", {
+                const response = await axios.get(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/expenses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -80,9 +80,9 @@ const Home = () => {
                         <ExpenseDetails key={expense._id} expense={expense} />
                     ))}
                 </div>} */}
-                {/* {expenses && <div className="list-expenses">
+                {expenses && <div className="list-expenses">
                     <PaginatedExpenses expenses={expenses}/>
-                </div>} */}
+                </div>}
             </div>
         </>
 

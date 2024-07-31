@@ -20,7 +20,7 @@ const ExpenseForm = () => {
 
         const expense = { date, place, amount }
 
-        const response = await axios.post('api/overview', expense, {
+        const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}api/overview`, expense, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

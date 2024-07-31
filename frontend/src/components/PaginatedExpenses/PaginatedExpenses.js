@@ -23,7 +23,7 @@ const PaginatedExpenses = ({ expenses }) => {
     return (
         <div>
             <div>
-                {currentExpenses.map((expense) => (
+                {currentExpenses && currentExpenses.map((expense) => (
                     <ExpenseDetails key={expense._id} expense={expense} />
                 ))}
             </div>

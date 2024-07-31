@@ -17,7 +17,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/overview/signup', { userName, password });
+      const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/signup`, { userName, password });
 
       if (response.status === 200) {
         const token = await response.data.token;
