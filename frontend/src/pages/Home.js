@@ -80,9 +80,9 @@ const Home = () => {
                         <ExpenseDetails key={expense._id} expense={expense} />
                     ))}
                 </div>} */}
-                {expenses && <div className="list-expenses">
+                {/* {expenses && <div className="list-expenses">
                     <PaginatedExpenses expenses={expenses}/>
-                </div>}
+                </div>} */}
             </div>
         </>
 
