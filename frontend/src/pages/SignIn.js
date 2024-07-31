@@ -20,7 +20,7 @@ const SignIn = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`/api/overview/signin`, { userName, password });
+            const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/signin`, { userName, password });
 
             if (response.status === 200) {
                 const token = response.data.token;
