@@ -24,7 +24,7 @@ const ExpenseDetails = ({expense}) => {
     //Delete Expense
     const handleDeleteConfirm = async () => {
         setShowDialog(false);
-        const response = await axios.delete(`${process.env.REACT_APP_APPLICATION_URL}api/overview/${expense._id}`)
+        const response = await axios.delete(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/${expense._id}`)
 
         if(response.status === 200) {
             const result = await response.data
@@ -52,7 +52,7 @@ const ExpenseDetails = ({expense}) => {
     const handleSave = async () => {
         setShowEditOption(false);
         setShowDialog(false);
-        const response = await axios.patch(`${process.env.REACT_APP_APPLICATION_URL}api/overview/${expense._id}`, {
+        const response = await axios.patch(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/${expense._id}`, {
             date: editedExpense.date,
             place: editedExpense.place,
             amount: editedExpense.amount
