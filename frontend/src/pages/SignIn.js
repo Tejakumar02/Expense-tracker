@@ -51,7 +51,7 @@ const SignIn = () => {
                 <button onClick={() => navigate('/signup')}>SIGN UP</button>
             </header>
             <form onSubmit={handleSubmit}>
-                <h2>SIGN IN TO GJ</h2>
+                <h2>SIGN IN TO EXGO</h2>
                 <input type='text' placeholder='Username' value={userName} onChange={(e) => setUsername(e.target.value)} required/>
                 <div className='password-container'>
                     <input type={ showPassword ? 'text' : 'password' } placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required/>
