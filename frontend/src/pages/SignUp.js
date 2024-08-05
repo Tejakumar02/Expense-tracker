@@ -69,7 +69,7 @@ const handleConfirmPassword = (e) => {
         <button onClick={() => navigate('/signin')}>SIGN IN</button>
       </header>
       <form onSubmit={handleSubmit}>
-        <h2>SIGN UP TO EXGO</h2>
+        <h2>SIGN UP</h2>
         <input type="text" placeholder="Username" value={userName} onChange={(e) => setUsername(e.target.value)} required/>
         <input type="password" placeholder="Enter Password" value={password} onChange={handlePassword} required/>
         <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={handleConfirmPassword} required/>
