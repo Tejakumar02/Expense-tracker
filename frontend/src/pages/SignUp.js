@@ -58,12 +58,14 @@ const Signup = () => {
 
     if (validUserName)  {
       setToast(true);
+      setToastType('error');
       setToastMessage('Username should have atleast 5 characters');
       valid = false;
       return;
     }
     if (validPassword) {
       setToast(true);
+      setToastType('error');
       setToastMessage('Password should have atleast 8 characters');
       setPassword('');
       setConfirmPassword('');
@@ -72,6 +74,7 @@ const Signup = () => {
     }
     if (paswordMismatch) {
       setToast(true);
+      setToastType('error');
       setToastMessage('Password mismatch, enter same passwords in both fields');
       setConfirmPassword('');
       valid = false;
