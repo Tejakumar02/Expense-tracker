@@ -1,6 +1,6 @@
 const express = require('express')
 const { createExpense, getAllExpenses, getSpecifiedExpense, deleteExpense, updateExpense } = require('../controllers/expenseController')
-const { signUp, signIn, authMiddleware } = require('../controllers/authenticationController');
+const { signUp, signIn, authMiddleware, updatePassword } = require('../controllers/authenticationController');
 
 const router = express.Router()
 
@@ -17,5 +17,7 @@ router.patch('/:id', updateExpense)
 router.post('/signup', signUp)
 
 router.post('/signin', signIn)
+
+router.post('/change_password', updatePassword)
 
 module.exports = router

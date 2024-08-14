@@ -5,7 +5,6 @@
     border-radius: 4px;
     margin-bottom: 1rem;
     padding: 1rem 2rem;
-    position: relative;
     box-shadow: 5px 5px 15px 15px rgba(0,0,0,0.05);
     justify-content: space-between;
     flex-direction: column;
@@ -21,7 +20,7 @@
             h4 {
                 margin: 0;
                 font-size: 1.2rem;
-                color: $success;
+                color: $primary;
             }
     
             p {
@@ -71,8 +70,8 @@
         button {
             width: 30%;
             padding: 10px;
-            background: $success;
-            border: $success;
+            background: $primary;
+            border: $primary;
             border-radius: 0.5rem;
             columns: $background-color;
             color: $background-color;
@@ -81,7 +80,7 @@
             cursor: pointer;
 
             &:hover {
-                background-color: $error;
+                background-color: $tertiary;
             }
         }
     }

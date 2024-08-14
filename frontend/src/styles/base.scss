@@ -5,9 +5,10 @@
 @import '../styles/breakpoints.scss';
 
 //colors
-$error: #FF7777;
-$success: #399918;
+$error: #FF0000;
+$primary: #E64E03;
 $secondary: #ECFFE6;
+$tertiary: #399918;
 $background-color: #FFF;
 $raven: #333940;
 
@@ -23,7 +24,7 @@ label, input {
 
 input {
     padding: 20px;
-    width: 80%;
+    width: 60%;
     border: 1px solid #616161;
     border-radius: 0.5rem;
     box-sizing: border-box;
@@ -31,23 +32,57 @@ input {
 }
 
 .error {
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    padding: 4px 0 4px 4px;
     background: $error;
     border: 1px solid $error;
     color: $background-color;
     border-radius: 4px;
     margin: auto;
     font-size: 0.8rem;
+    
+    p {
+        margin: 0 1rem;
+    }
+
+    img {
+        width: 24px !important;
+        height: 24px;
+        cursor: pointer;
+    }
+}
+
+.success {
+    display: flex;
+    align-items: center;
+    padding: 4px 0 4px 4px;
+    background: $tertiary;
+    border: 1px solid $tertiary;
+    color: $background-color;
+    border-radius: 4px;
+    margin: auto;
+    font-size: 0.8rem;
+    
+    p {
+        margin: 0 1rem;
+    }
+
+    img {
+        width: 24px !important;
+        height: 24px;
+        cursor: pointer;
+    }
 }
 
 input.error {
     border: 1px solid $error;
+    background: #FFF;
 }
 
 form {
     width: 572px;
     margin: auto;
-    position: relative;
     background: $background-color;
     padding: 1.5rem;
     border-radius: 0.5rem;
@@ -59,6 +94,8 @@ form {
         text-align: center;
         margin: 0;
         font-weight: 600;
+        color: #E64E03;
+        font-style: italic;
     }
 }
 
@@ -68,13 +105,13 @@ button {
     cursor: pointer;
     border: none;
     outline: none;
-    background-color: $success;
+    background-color: $primary;
     color: $background-color;
     border-radius: 4px;
     font-weight: bold;
 
     &:hover {
-        background-color: $error;
+        background-color: $tertiary;
     }
 }
 
@@ -100,8 +137,14 @@ button {
         text-align: center;  
         
         .content {
+            margin: 1rem;
+
             h2 {
-                margin: 0;
+                margin: 1rem 0;
+            }
+
+            p {
+                margin: 1rem 0 2rem;
             }
         }
     }
@@ -112,23 +155,25 @@ button {
         cursor: pointer;
         border: none;
         outline: none;
-        background-color: $success;
+        background-color: $primary;
         color: $background-color;
         border-radius: 4px;
         font-weight: bold;
 
         &:hover {
-            background-color: $error;
+            background-color: $tertiary;
         }
     }
 }
 
+p, h3, h4 {
+    margin: 0;
+}
 //stylesheets
 @import '../components/Header/Header.scss';
-@import '../components/LeftNav/LeftNav.scss';
-@import '../components/Layout/Layout.scss';
 @import '../components/ExpenseDetails/ExpenseDetails.scss';
 @import '../styles/signin.scss';
 @import '../components/ExpenseForm/ExpenseForm.scss';
 @import '../components//ExpenseViewForm/ExpenseViewForm.scss';
 @import '../components/PaginatedExpenses/PaginatedExpenses.scss';
+@import '../styles/settings.scss';

@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { setTokenWithExpiry } from '../helpers/common';
-import BgImage from '../assets/background-image.jpg';
-import Logo from '../assets/dark-logo.jpg'
-import ShowPWD from '../assets/show.svg'
-import HidePWD from '../assets/hide.svg'
-
+import BgImage from '../assets/signin.svg';
+import Logo from '../assets/logo.svg'
+import Show from '../assets/show.svg'
+import Hide from '../assets/hide.svg'
+import ToastModal from '../components/ToastModal/ToastModal';
 
 const SignIn = () => {
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('');
+    const [toast, setToast] = useState(false);
+    const [toastType, setToastType] = useState('');
+    const [toastMessage, setToastMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
@@ -23,18 +24,26 @@ const SignIn = () => {
             const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/signin`, { userName, password });
 
             if (response.status === 200) {
+                setToast(true);
+                setToastType('success');
+                setToastMessage(response.data.msg);
                 const token = response.data.token;
                 const name = response.data.userName;
                 sessionStorage.setItem('name', name);
                 setTokenWithExpiry('token', token); 
                 navigate('/home'); 
-              }
+            }
         }
         catch(error) {
-            console.log(error)
-            if (error.response.status === 400) {
-                setError(true);
-                setErrorMessage(error.response.data.msg)
+            if (error.response && error.response.status === 400) {
+                setToast(true);
+                setToastType('error');
+                setToastMessage(error.response.data.msg);
+            }
+            else {
+                setToast(true);
+                setToastType('error');
+                setToastMessage("Network Error");
             }
         }
     }
@@ -45,21 +54,23 @@ const SignIn = () => {
 
     return(
         <div className='authentication'>
-            <img src={BgImage} />
             <header>
                 <img className='logo' src={Logo}/>
                 <button onClick={() => navigate('/signup')}>SIGN UP</button>
             </header>
-            <form onSubmit={handleSubmit}>
-                <h2>SIGN IN</h2>
-                <input type='text' placeholder='Username' value={userName} onChange={(e) => setUsername(e.target.value)} required/>
-                <div className='password-container'>
-                    <input type={ showPassword ? 'text' : 'password' } placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                    <img src={ showPassword ? ShowPWD : HidePWD } onClick={passwordVisibility}/>
-                </div>
-                {error && <div className='error'>{errorMessage}</div>}
-                <button type='submit'>SIGN IN</button>
-            </form>
+            <div className='content'>
+                <img src={BgImage} />
+                <form onSubmit={handleSubmit}>
+                    <h2>Track N Spend</h2>
+                    <input type='text' placeholder='Username' value={userName} onChange={(e) => setUsername(e.target.value)} />
+                    <div className='password-container'>
+                        <input type={ showPassword ? 'text' : 'password' } placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <img src={ showPassword ? Hide : Show } onClick={passwordVisibility}/>
+                    </div>
+                    {toast && <ToastModal message={toastMessage} hideModal={() => setToast(false)} type={toastType} />}
+                    <button type='submit'>SIGN IN</button>
+                </form>
+            </div>
         </div>
     )
 }

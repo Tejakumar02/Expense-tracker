@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Signup from './pages/SignUp';
@@ -9,6 +10,7 @@ import Layout from './components/Layout/Layout';
 
 function App(){
   const token = sessionStorage.getItem('token');
+
   return (
     <>
       <div className="App">

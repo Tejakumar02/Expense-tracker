@@ -1,0 +1,76 @@
+.settings-container {
+    background: $background-color;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
+        padding-right: 8px;
+        cursor: pointer;
+    }
+
+    .settings {
+        h4 {
+            margin: auto;
+            padding: 1rem;
+        }
+    
+        form {
+            width: auto;
+            margin: 0;
+            gap: 0;
+            padding: 0 1rem;
+            background: $background-color;
+    
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+    
+                input {
+                    width: 55%;
+                    padding: 10px;
+                    margin: 0.5rem 0;
+                }
+            }
+    
+            button {
+                margin: 1rem 0;
+                border-radius: 0.5rem;
+                width: 40%;
+                padding: 0.5rem;
+                background: $primary;
+                align-self: center;
+                border: $primary;
+                color: $background-color;
+                font-weight: bold;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $tertiary;
+                }
+            }
+        }
+    }
+}

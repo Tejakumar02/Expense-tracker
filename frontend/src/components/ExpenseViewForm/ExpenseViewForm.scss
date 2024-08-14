@@ -1,5 +1,4 @@
 .expenses-container {
-    width: 45%;
     background: $background-color;
     display: flex;
     flex-direction: column;
@@ -25,15 +24,15 @@
             border-radius: 0.5rem;
             width: 15%;
             padding: 0.5rem;
-            background: $success;
+            background: $primary;
             align-self: center;
-            border: $success;
+            border: $primary;
             color: $background-color;
             font-weight: bold;
             cursor: pointer;
 
             &:hover {
-                background-color: $error;
+                background-color: $tertiary;
             }
         }
     }
@@ -43,7 +42,12 @@
         align-items: center;
         gap: 0.5rem;
         justify-content: space-between;
-        padding: 0.5rem 2rem;
+        padding: 0.5rem 1rem;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
 
         h4 {
             margin: 0;

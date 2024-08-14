@@ -1,55 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ExpenseDetails from '../ExpenseDetails/ExpenseDetails';
 
 const PaginatedExpenses = ({ expenses }) => {
-    // Number of expenses per page
-    const itemsPerPage = 5;
-    // Total number of pages
-    const totalPages = Math.ceil(expenses.length / itemsPerPage);
-    
-    // State for the current page
+    const itemsPerPage = 10; // Number of expenses to show per page
     const [currentPage, setCurrentPage] = useState(1);
+    const [displayedExpenses, setDisplayedExpenses] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const observerRef = useRef(null);
 
-    // Calculate the expenses to display for the current page
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentExpenses = expenses.slice(startIndex, endIndex);
+    // Load initial expenses
+    useEffect(() => {
+        const initialExpenses = expenses.slice(0, itemsPerPage);
+        setDisplayedExpenses(initialExpenses);
+    }, [expenses]);
 
-    // Handle page change
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
+    // Function to load more expenses
+    const loadMoreExpenses = () => {
+        if (loading || currentPage * itemsPerPage >= expenses.length) return;
+        
+        setLoading(true);
+        const nextPage = currentPage + 1;
+        const newExpenses = expenses.slice(0, nextPage * itemsPerPage);
+        setDisplayedExpenses(newExpenses);
+        setCurrentPage(nextPage);
+        setLoading(false);
     };
+
+    // Set up Intersection Observer for infinite scrolling
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    loadMoreExpenses();
+                }
+            },
+            {
+                rootMargin: '100px',
+            }
+        );
+
+        if (observerRef.current) {
+            observer.observe(observerRef.current);
+        }
+
+        return () => {
+            if (observerRef.current) {
+                observer.unobserve(observerRef.current);
+            }
+        };
+    }, [loading, currentPage, expenses]);
 
     return (
         <div>
             <div>
-                {currentExpenses && currentExpenses.map((expense) => (
+                {displayedExpenses.map((expense) => (
                     <ExpenseDetails key={expense._id} expense={expense} />
                 ))}
             </div>
-            <div className='navigation-controls'>
-                {/* Page navigation controls */}
-                <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    PREVIOUS
-                </button>
-                {/* {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index + 1}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={currentPage === index + 1 ? 'active' : ''}
-                    >
-                        {index + 1}
-                    </button>
-                ))} */}
-                <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    NEXT
-                </button>
+            <div
+                ref={observerRef}
+                style={{ height: '20px', backgroundColor: 'transparent' }} // Invisible but necessary for observer
+            >
+                {loading && <p>Loading more expenses...</p>}
             </div>
         </div>
     );

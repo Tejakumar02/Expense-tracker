@@ -11,15 +11,15 @@ header {
         button {
             width: fit-content;
             padding: 0.8rem;
-            background: $success;
-            border: $success;
+            background: $primary;
+            border: $primary;
             border-radius: 0.5rem;
             color: $background-color;
             font-weight: bold;
             cursor: pointer;
 
             &:hover {
-                background-color: $error;
+                background-color: $tertiary;
             }
         }
     }
@@ -28,5 +28,15 @@ header {
         color: $raven;
         text-decoration: none;
         font-weight: bold;
+
+        &:hover {
+            color: $tertiary;
+        }
+    }
+    
+    .accessibility {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
     }
 }

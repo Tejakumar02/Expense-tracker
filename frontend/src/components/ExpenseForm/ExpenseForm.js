@@ -20,25 +20,36 @@ const ExpenseForm = () => {
 
         const expense = { date, place, amount }
 
-        const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview`, expense, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview`, expense, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
 
-        if(response.status === 200) {
-            const result = await response.data
-            setDate('');
-            setPlace('');
-            setAmount('');
-            setError(null);
-            setEmptyFields([]);
-            dispatch({type: 'CREATE_EXPENSES', payload: result})
-        } 
-        else {
-            setError(response.data.error);
-            setEmptyFields(response.data.emptyFields);
-        }
+            if (response.status === 200) {
+                const result = await response.data
+                setDate('');
+                setPlace('');
+                setAmount('');
+                setError(null);
+                setEmptyFields([]);
+                dispatch({type: 'CREATE_EXPENSES', payload: result})
+            }
+        } catch (err) {
+            if (err.response) {
+                const { status, data } = err.response;
+                if (status === 400) {
+                    setError(data.error);
+                    setEmptyFields(data.emptyFields);
+                } else {
+                    setError("An unexpected error occurred");
+                }
+            }
+            else {
+                setError("Network error");
+            }
+        }       
     }
 
     return (
@@ -47,22 +58,22 @@ const ExpenseForm = () => {
                 <img src={Date} />
                 <label>Date: </label>
                 <input type="date" onChange={(e) => setDate(e.target.value)} value={date} 
-                    className={emptyFields.includes('Date') ? 'error' : ''} required />
+                    className={emptyFields.includes('Date') ? 'error' : ''} />
             </div>
             <div>
                 <img src={Place} />
                 <label>Place: </label>
                 <input type="text" onChange={(e) => setPlace(e.target.value)} value={place}
-                    className={emptyFields.includes('Place') ? 'error' : ''} required />
+                    className={emptyFields.includes('Place') ? 'error' : ''} />
             </div>
             <div>
                 <img src={Amount} />
                 <label>Amount: </label>
                 <input type="number" onChange={(e) => setAmount(e.target.value)} value={amount}
-                    min="0" className={emptyFields.includes('Amount') ? 'error' : ''} required />
+                    min="0" className={emptyFields.includes('Amount') ? 'error' : ''} />
             </div>
-            <button>Add Expense</button>
             {error && <div className="error">{error}</div>}
+            <button>Add Expense</button>
         </form>
     )
 }

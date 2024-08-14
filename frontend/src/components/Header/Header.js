@@ -13,7 +13,7 @@ const Header = () => {
         <header>
             <div className="container">
                 <Link to="/">
-                    <h2>Welcome {name}</h2>
+                    <h2>Welcome {name}!</h2>
                 </Link>
                 <button onClick={handleLogout}>LOGOUT</button>
             </div>

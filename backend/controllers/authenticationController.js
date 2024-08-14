@@ -62,7 +62,7 @@ const signIn = async(req, res) => {
             process.env.JWT_SECRET,
             (err, token) => {
                 if (err) throw err;
-                res.json({ token, userName })
+                res.json({ token, userName, msg: "SignIn is Successfull" })
             }
         )
     }
@@ -92,8 +92,31 @@ const authMiddleware = async(req, res, next) => {
     }
 }
 
+const updatePassword = async (req, res) => {
+    const {userName, oldPassword, newPassword} = req.body;
+    try {
+        let user = await User.findOne({ userName });
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if(!isMatch) {
+            return res.status(400).json({msg: 'Old Password is Wrong!!'});
+        }
+        if(oldPassword === newPassword) {
+            return res.status(400).json({msg: `New password shouldn't be the old password`})
+        }
+        const salt = await bcrypt.genSalt(10);
+        const updatedPassword = await bcrypt.hash(newPassword, salt);
+        await User.findOneAndUpdate({userName: userName}, {password: updatedPassword}, {new: true})
+        res.status(200).json({msg: "Password Updated"})
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send('Server Error')
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
-    authMiddleware
+    authMiddleware,
+    updatePassword
 }
