@@ -31,7 +31,9 @@ const SignIn = () => {
                 const name = response.data.userName;
                 sessionStorage.setItem('name', name);
                 setTokenWithExpiry('token', token); 
-                navigate('/home'); 
+                setTimeout(() => {
+                    navigate('/home');
+                }, 1000);
             }
         }
         catch(error) {

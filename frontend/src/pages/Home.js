@@ -14,12 +14,14 @@ import Month from '../assets/total-month.svg';
 import { checkTokenExpiry, totalExpenses, findCurrentMonth, findCurrentMonthExpenses } from "../helpers/common";
 import PaginatedExpenses from "../components/PaginatedExpenses/PaginatedExpenses";
 import Settings from "./Settings";
+import Loader from "../components/Loader/Loader";
 
 const Home = () => {
     const {expenses, dispatch} = useExpenseContext();
     const [showExpenseForm, setShowExpenseForm] = useState(false);
     const [showViewForm, setShowViewForm] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ const Home = () => {
         }
 
         const fetchExpenses = async () => {
+            setIsLoading(true);
             try {
                 const response = await axios.get(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/expenses`, {
                     headers: {
@@ -49,9 +52,12 @@ const Home = () => {
             catch(error) {
                 console.error("Error while fetching the data", error);
             }
+            finally {
+                setIsLoading(false);
+            }
         };
         fetchExpenses();
-    }, [dispatch])
+    }, [dispatch, navigate, token]);
 
     const expenseForm = () => {
         setShowExpenseForm(prevState => !prevState);
@@ -67,6 +73,7 @@ const Home = () => {
 
     return(
         <>
+            {isLoading ? <Loader /> :
             <div className='home'>
                 <div className="container">
                     {expenses && <div className="list-expenses">
@@ -127,7 +134,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </>
 
     )

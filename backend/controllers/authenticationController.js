@@ -28,7 +28,7 @@ const signUp = async(req,res) => {
             process.env.JWT_SECRET,
             (err, token) => {
                 if(err) throw err;
-                res.json({ token, userName });
+                res.json({ token, userName, msg: "SignUp Successfull" });
             }            
         )
     }
@@ -62,7 +62,7 @@ const signIn = async(req, res) => {
             process.env.JWT_SECRET,
             (err, token) => {
                 if (err) throw err;
-                res.json({ token, userName, msg: "SignIn is Successfull" })
+                res.json({ token, userName, msg: "SignIn Successfull" })
             }
         )
     }

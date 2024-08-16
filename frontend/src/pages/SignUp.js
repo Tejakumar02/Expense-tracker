@@ -29,9 +29,14 @@ const Signup = () => {
       const response = await axios.post(`${process.env.REACT_APP_APPLICATION_URL}/api/overview/signup`, { userName, password });
 
       if (response.status === 200) {
+        setToast(true);
+        setToastType('success');
+        setToastMessage(response.data.msg);
         const token = await response.data.token;
         setTokenWithExpiry('token', token);
-        navigate('/home');
+        setTimeout(() => {
+          navigate('/home');
+      }, 1000);
       } else {
         console.error('Token not received in response');
       }
