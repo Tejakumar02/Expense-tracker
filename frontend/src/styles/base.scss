@@ -10,7 +10,7 @@ $primary: #E64E03;
 $secondary: #ECFFE6;
 $tertiary: #399918;
 $background-color: #FFF;
-$raven: #333940;
+$raven: #3C3D37;
 
 body {
     background: #F2F2F2;
@@ -29,6 +29,11 @@ input {
     border-radius: 0.5rem;
     box-sizing: border-box;
     margin: auto;
+
+    @media screen and (max-width: 450px) {
+        width: 80%;
+        padding: 10px;
+    }
 }
 
 .error {
@@ -44,6 +49,7 @@ input {
     
     p {
         margin: 0 1rem;
+        color: $background-color;
     }
 
     img {
@@ -65,6 +71,7 @@ input {
     font-size: 0.8rem;
     
     p {
+        color: $background-color;
         margin: 0 1rem;
     }
 
@@ -76,12 +83,14 @@ input {
 }
 
 input.error {
+    display: block;
     border: 1px solid $error;
-    background: #FFF;
+    background: $background-color;
+    color: $error;
 }
 
 form {
-    width: 572px;
+    width: 35%;
     margin: auto;
     background: $background-color;
     padding: 1.5rem;
@@ -100,7 +109,6 @@ form {
 }
 
 button {
-    margin: 0 10px;
     padding: 8px 16px;
     cursor: pointer;
     border: none;
@@ -129,12 +137,16 @@ button {
     background-color: $background-color;
 
     .dialog {
+        width: 30%;
         background-color: $background-color;
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        width: 400px;
-        text-align: center;  
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+        text-align: center;
+
+        @media screen and (max-width: 450px) {
+            width: 70%;
+        }
         
         .content {
             margin: 1rem;
@@ -166,7 +178,8 @@ button {
     }
 }
 
-p, h3, h4 {
+p, h2, h3, h4 {
+    color: $raven;
     margin: 0;
 }
 //stylesheets

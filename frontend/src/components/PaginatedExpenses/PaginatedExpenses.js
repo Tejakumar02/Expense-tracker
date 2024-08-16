@@ -52,11 +52,9 @@ const PaginatedExpenses = ({ expenses }) => {
 
     return (
         <div>
-            <div>
-                {displayedExpenses.map((expense) => (
-                    <ExpenseDetails key={expense._id} expense={expense} />
-                ))}
-            </div>
+            {displayedExpenses.map((expense) => (
+                <ExpenseDetails key={expense._id} expense={expense} />
+            ))}
             <div
                 ref={observerRef}
                 style={{ height: '20px', backgroundColor: 'transparent' }} // Invisible but necessary for observer

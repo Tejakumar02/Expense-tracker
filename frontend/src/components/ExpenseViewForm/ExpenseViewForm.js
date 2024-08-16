@@ -23,10 +23,14 @@ const ExpenseViewForm = ({ expense }) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <input type='text' placeholder='FROM DATE' value={fromDate} onChange={(e) => setFromDate(e.target.value)}  onFocus={(e) => e.target.type = 'date'} onBlur={(e) => e.target.type = 'text'} />
-                <input type='text' placeholder='TO DATE' value={toDate} onChange={(e) => SetToDate(e.target.value)} onFocus={(e) => e.target.type = 'date'} onBlur={(e) => e.target.type = 'text'} />
-                <button type="submit">VIEW</button>
-                <button type="button" onClick={handleReset}>CLEAR</button>
+                <div>
+                    <input type='text' placeholder='FROM' value={fromDate} onChange={(e) => setFromDate(e.target.value)} onFocus={(e) => e.target.type = 'date'} onBlur={(e) => e.target.type = 'text'} />
+                    <input type='text' placeholder='TO' value={toDate} onChange={(e) => SetToDate(e.target.value)} onFocus={(e) => e.target.type = 'date'} onBlur={(e) => e.target.type = 'text'} />
+                </div>
+                <div>
+                    <button type="submit">View</button>
+                    <button type="button" onClick={handleReset}>Clear</button>
+                </div>
             </form>
         </>
     )

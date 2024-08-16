@@ -20,6 +20,10 @@
         h4 {
             margin: 0;
             font-size: 1.2rem;
+
+            @media screen and (max-width: 450px) {
+                font-size: 1rem;
+            }
         }
     }
 
@@ -31,6 +35,8 @@
     }
 
     .settings {
+        padding: 1rem 0 0;
+
         h4 {
             margin: auto;
             padding: 1rem;
@@ -43,20 +49,32 @@
             padding: 0 1rem;
             background: $background-color;
     
-            div {
+            div:nth-of-type(-n+3) {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
+                @media only screen and (max-width: 450px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    font-size: 0.8rem;
+                }
     
                 input {
                     width: 55%;
                     padding: 10px;
                     margin: 0.5rem 0;
+
+                    @media only screen and (max-width: 450px) {
+                        width: auto;
+                        font-size: 0.7rem;
+                    }
                 }
             }
     
             button {
-                margin: 1rem 0;
+                margin: auto;
+                margin-top: 0.5rem;
                 border-radius: 0.5rem;
                 width: 40%;
                 padding: 0.5rem;

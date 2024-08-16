@@ -4,6 +4,7 @@ import axios from "axios";
 import Date from '../../assets/date.svg';
 import Place from '../../assets/place.svg';
 import Amount from '../../assets/amount.svg';
+import ToastModal from "../ToastModal/ToastModal";
 
 const ExpenseForm = () => {
     const { dispatch } = useExpenseContext()
@@ -11,8 +12,10 @@ const ExpenseForm = () => {
     const [date, setDate] = useState('')
     const [place, setPlace] = useState('')
     const [amount, setAmount] = useState('')
-    const [error, setError] = useState(null)
     const [emptyFields, setEmptyFields] = useState([]);
+    const [toast, setToast] = useState(false);
+    const [toastType, setToastType] = useState('');
+    const [toastMessage, setToastMessage] = useState('');
     const token = sessionStorage.getItem('token');
 
     const handleSubmit = async (e) => {
@@ -32,22 +35,31 @@ const ExpenseForm = () => {
                 setDate('');
                 setPlace('');
                 setAmount('');
-                setError(null);
                 setEmptyFields([]);
+                setToast(true);
+                setToastType('success');
+                setToastMessage('Expense added successfully');
                 dispatch({type: 'CREATE_EXPENSES', payload: result})
             }
         } catch (err) {
+            console.log(err)
             if (err.response) {
                 const { status, data } = err.response;
                 if (status === 400) {
-                    setError(data.error);
+                    setToast(true);
+                    setToastType('error');
+                    setToastMessage('Please Fill all the fields');
                     setEmptyFields(data.emptyFields);
                 } else {
-                    setError("An unexpected error occurred");
+                    setToast(true);
+                    setToastType('error');
+                    setToastMessage('An Unexpected error occured');
                 }
             }
             else {
-                setError("Network error");
+                setToast(true);
+                setToastType('error');
+                setToastMessage('Network error');
             }
         }       
     }
@@ -55,24 +67,30 @@ const ExpenseForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <img src={Date} />
-                <label>Date: </label>
-                <input type="date" onChange={(e) => setDate(e.target.value)} value={date} 
-                    className={emptyFields.includes('Date') ? 'error' : ''} />
+                <div className="label">
+                    <img src={Date} />
+                    <label>Date: </label>
+                </div>
+                <input type="text" onChange={(e) => setDate(e.target.value)} value={date} placeholder="Date"
+                    className={emptyFields.includes('Date') ? 'error' : ''} onFocus={(e) => e.target.type = 'date'} onBlur={(e) => e.target.type = 'text'}  />
             </div>
             <div>
-                <img src={Place} />
-                <label>Place: </label>
-                <input type="text" onChange={(e) => setPlace(e.target.value)} value={place}
+                <div className="label">
+                    <img src={Place} />
+                    <label>Place: </label>
+                </div>
+                <input type="text" onChange={(e) => setPlace(e.target.value)} value={place} placeholder="Place"
                     className={emptyFields.includes('Place') ? 'error' : ''} />
             </div>
             <div>
-                <img src={Amount} />
-                <label>Amount: </label>
-                <input type="number" onChange={(e) => setAmount(e.target.value)} value={amount}
+                <div className="label">
+                    <img src={Amount} />
+                    <label>Amount: </label>
+                </div>
+                <input type="number" onChange={(e) => setAmount(e.target.value)} value={amount} placeholder="Amount"
                     min="0" className={emptyFields.includes('Amount') ? 'error' : ''} />
             </div>
-            {error && <div className="error">{error}</div>}
+            {toast && <ToastModal message={toastMessage} hideModal={() => setToast(false)} type={toastType} />}
             <button>Add Expense</button>
         </form>
     )

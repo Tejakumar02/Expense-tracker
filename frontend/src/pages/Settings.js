@@ -85,16 +85,16 @@ const Settings = () => {
                 <div className="change-password">
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label>Enter the old Password</label>
-                            <input type="password" placeholder="Old Password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+                            <label>Enter old Password</label>
+                            <input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
                         </div>
                         <div>
-                            <label>Enter the new Password</label>
-                            <input type="password" placeholder="New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                            <label>Enter new Password</label>
+                            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                         </div>
                         <div>
                             <label>Confirm  Password</label>
-                            <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                         </div>
                             {toast && <ToastModal message={toastMessage} hideModal={() => setToast(false)} type={toastType} />}
                             <button onClick={handleSave}>Save</button>
