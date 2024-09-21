@@ -9,7 +9,7 @@ import Budget from './pages/Budget';
 import Layout from './components/Layout/Layout';
 
 function App(){
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem('token')
 
   return (
     <>
