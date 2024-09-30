@@ -63,7 +63,7 @@ const SignIn = () => {
             <div className='content'>
                 <img src={BgImage} />
                 <form onSubmit={handleSubmit}>
-                    <h2>Track N Spend</h2>
+                    <h2>Track  BHarath Spend</h2>
                     <input type='text' placeholder='Username' value={userName} onChange={(e) => setUsername(e.target.value)} />
                     <div className='password-container'>
                         <input type={ showPassword ? 'text' : 'password' } placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
